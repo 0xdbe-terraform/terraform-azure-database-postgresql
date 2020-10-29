@@ -16,12 +16,13 @@ Administrators and Users must be user principals (or, maybe, Managed Idenities).
 Prerequisite:
 
 - A ressource groupe
-- At least, one user principals as admistrator
-- At least, one user principals as user
+- At least, one user principal who will be database admistrator
+- At least, one user principal who will be database user
 
 This ressource can be created using terraform, az cli or azure portal.
 
 Then, Postgresql can be created using this module as shown in the example.
+A service principal with enough rights (on AzureAD and AzureRM) must be used to deploy.
 
 
 ## Database connection as Administrator
@@ -103,11 +104,22 @@ You are connected to database "appdb" as user "group-hw-dev-psql-users@psql-serv
 SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)
 ```
 
+- If error, verify that access token includes the new group
+
+```
+psql: error: could not connect to server: FATAL:  Azure AD access token not valid for role group-hw-dev-psql-user (does not contain group ID ba0ea787-9e71-4e9e-834d-71aa7f32361b)
+HINT:  Did you specify the correct user name and access token?
+```
+
+```
+jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$PGPASSWORD"
+```
+
 ## To Do
 
 What still needs to be done:
 
 - [ ] Disable default admin generic account
 - [ ] Allowing to configure SKU and pricing tier
-- [ ] Allowing to create several databases
 - [ ] Restrict network access
+- [ ] Grant access on databases
