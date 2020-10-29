@@ -50,8 +50,20 @@ variable "psql_server_purpose" {
   }
 }
 
-variable "psql_server_administrators_id" {
+variable "psql_server_administrators" {
   type        = set(string)
   default     = []
-  description = "List of administrators. Administrator could be Users Princpal or Service Account. A Service Principal is not allowed."
+  description = "Administrators must be User Princpals or Managed identities. A Service Principal is not allowed."
+}
+
+variable "psql_server_users" {
+  type        = set(string)
+  default     = []
+  description = "Users must be User Princpals or Managed identities. A Service Principal is not allowed."
+}
+
+variable "database_name" {
+  type        = set(string)
+  default     = ["appdb"]
+  description = "Name of the database (example: customer, product, ...)."
 }
