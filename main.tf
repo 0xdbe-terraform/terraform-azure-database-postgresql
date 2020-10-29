@@ -39,7 +39,7 @@ resource "azurerm_postgresql_firewall_rule" "all" {
 }
 
 resource "azuread_group" "db_admin" {
-  name = "group-${replace(title(var.application_full_name)," ","")}-${var.application_environment}-psql-${length(var.psql_server_purpose) > 0 ? "${var.psql_server_purpose}-" : ""}-admin"
+  name = "group-${lower(var.application_short_name)}-${var.application_environment}-psql-${length(var.psql_server_purpose) > 0 ? "${var.psql_server_purpose}-" : ""}admin"
 }
 
 resource "azuread_group_member" "db_admin" {
