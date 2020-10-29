@@ -34,6 +34,12 @@ variable "resource_group_name" {
   description = "Name of the Ressource Group in which this ressource will be"
 }
 
+variable "psql_server_version" {
+  type        = string
+  description = "Major version of postgresql (exemple: 10 or 11)."
+  default     = "11"
+}
+
 variable "psql_server_purpose" {
   type        = string
   description = "Usage of this database (example: customer, data, ...)."
