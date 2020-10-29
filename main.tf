@@ -35,7 +35,7 @@ resource "azurerm_postgresql_firewall_rule" "all" {
   resource_group_name = var.resource_group_name
   server_name         = azurerm_postgresql_server.main.name
   start_ip_address    = "0.0.0.0"
-  end_ip_address      = "2555.255.255.255"
+  end_ip_address      = "255.255.255.255"
 }
 
 resource "azuread_group" "db_admin" {
