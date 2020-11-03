@@ -59,7 +59,20 @@ resource "azurerm_postgresql_active_directory_administrator" "main" {
 }
 
 resource "azuread_group" "db_user" {
-  name = "group-${lower(var.application_short_name)}-${var.application_environment}-psql-${length(var.psql_server_purpose) > 0 ? "${var.psql_server_purpose}-" : ""}user"
+
+  name  = "group-${lower(var.application_short_name)}-${var.application_environment}-psql-${length(var.psql_server_purpose) > 0 ? "${var.psql_server_purpose}-" : ""}user"
+  
+  # Local exec is used because Terraform Provider for Postgresql doesn't support "SET" command
+  provisioner "local-exec" {
+    working_dir = "${path.module}/"
+    command     = "./postgresql_setup.sh"
+    interpreter = ["/bin/bash"]
+    environment = {
+      SERVER_NAME = azurerm_postgresql_server.main.name
+      USER_NAME   = azurerm_postgresql_active_directory_administrator.main.login
+      GROUP_NAME  = self.name
+    }
+  }
 }
 
 resource "azuread_group_member" "db_user" {
@@ -76,5 +89,3 @@ resource "azurerm_postgresql_database" "main" {
   charset             = "UTF8"
   collation           = "English_United States.1252"
 }
-
-# comment

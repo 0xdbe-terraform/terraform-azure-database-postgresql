@@ -67,3 +67,4 @@ variable "database_name" {
   default     = ["appdb"]
   description = "Name of the database (example: customer, product, ...)."
 }
+

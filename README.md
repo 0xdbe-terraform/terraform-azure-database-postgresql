@@ -11,13 +11,19 @@ Administrators and Users must be user principals (or, maybe, Service Principal o
 
 ## Usage
 
+### Install needed tools
+
+This module use ``local-exec`` provisioner to configure database using ``az cli`` and ``psql``.
+This is used because Terraform Provider for Postgresql doesn't support "SET" command.
+For production, used a script in your CI/CD or IAC tools like Ansible.
+
 ### Deploy
 
 In order to deploy an Azure Database for Postegresql, the following resources are needed:
 
 - A ressource groupe
-- At least, one user principal who will be database admistrator
-- At least, one user principal who will be database user
+- At least one database admistrator (User or server principal)
+- If needed, some database users (User or server principal or Managed Identity)
 
 This ressource can be created using terraform, az cli or azure portal.
 
@@ -25,7 +31,7 @@ Then, use this module to deploy an Azure Database for Postegresql:
 
 ```hcl
 module "azure_database_postgresql" {
-  source                     = "git::https://github.com/0xdbe-terraform/terraform-azure-database-postgresql.git?ref=v3.0.0"
+  source                     = "git::https://github.com/0xdbe-terraform/terraform-azure-database-postgresql.git?ref=v2.0.3"
   azure_tenant_id            = data.azurerm_client_config.current.tenant_id
   azure_location             = "eastus"
   application_full_name      = "Hello World"
@@ -191,7 +197,6 @@ az login
 What still needs to be done:
 
 - [ ] Disable default admin generic account
-- [ ] try to deploy using a service principal
 - [ ] try do add system assign managed identity (with a simple webapp)
 - [ ] Allowing to configure SKU and pricing tier
 - [ ] Restrict network access
