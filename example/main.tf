@@ -28,8 +28,7 @@ module "azure_ad_sp" {
 }
 
 module "azure_database_postgresql" {
-  #source                     = "git::https://github.com/0xdbe-terraform/terraform-azure-database-postgresql.git?ref=v2.0.1"
-  source                     = "../"
+  source                     = "git::https://github.com/0xdbe-terraform/terraform-azure-database-postgresql.git?ref=v2.0.2"
   azure_tenant_id            = data.azurerm_client_config.current.tenant_id
   azure_location             = local.azure_location
   application_full_name      = local.application_full_name
