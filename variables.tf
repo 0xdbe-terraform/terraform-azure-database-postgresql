@@ -51,13 +51,13 @@ variable "psql_server_purpose" {
 }
 
 variable "psql_server_administrators" {
-  type        = set(string)
+  type        = list(string)
   default     = []
   description = "Administrators must be User Princpals or Managed identities. A Service Principal is not allowed."
 }
 
 variable "psql_server_users" {
-  type        = set(string)
+  type        = list(string)
   default     = []
   description = "Users must be User Princpals or Managed identities. A Service Principal is not allowed."
 }
