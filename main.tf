@@ -4,9 +4,13 @@ resource "random_integer" "main" {
 }
 
 resource "random_password" "admin" {
-  length           = 30
-  special          = true
-  override_special = "?!#()-[]<>,;*@="
+    length           = 30
+    special          = true
+    override_special = "_%?!#()-[]<>,;*@="
+    min_upper        = 1
+    min_lower        = 1
+    min_numeric      = 1
+    min_special      = 1
 }
 
 resource "azurerm_postgresql_server" "main" {

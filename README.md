@@ -31,7 +31,7 @@ Then, use this module to deploy an Azure Database for Postegresql:
 
 ```hcl
 module "azure_database_postgresql" {
-  source                     = "git::https://github.com/0xdbe-terraform/terraform-azure-database-postgresql.git?ref=v2.0.3"
+  source                     = "git::https://github.com/0xdbe-terraform/terraform-azure-database-postgresql.git?ref=v2.0.4"
   azure_tenant_id            = data.azurerm_client_config.current.tenant_id
   azure_location             = "eastus"
   application_full_name      = "Hello World"
