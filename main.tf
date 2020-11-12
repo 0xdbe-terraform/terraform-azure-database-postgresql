@@ -72,9 +72,12 @@ resource "azuread_group" "db_user" {
     command     = "./postgresql_setup.sh"
     interpreter = ["/bin/bash"]
     environment = {
-      SERVER_NAME = azurerm_postgresql_server.main.name
-      USER_NAME   = azurerm_postgresql_active_directory_administrator.main.login
-      GROUP_NAME  = self.name
+      PGDATABASE    = "postgres"
+      PGHOST        = "${azurerm_postgresql_server.main.name}.postgres.database.azure.com"
+      PGUSER        = "${azurerm_postgresql_active_directory_administrator.main.login}@${azurerm_postgresql_server.main.name}"
+      PGSSLMODE     = verify-full
+      PGSSLROOTCERT = BaltimoreCyberTrustRoot.crt.pem
+      GROUP_NAME    = self.name
     }
   }
 }

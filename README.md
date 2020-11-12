@@ -55,7 +55,7 @@ Now, you're ready to deploy
 terraform apply
 ```
 
-### Configure
+### Use with psql
 
 Before using this new Azure Database for Postegresql, some settings must be defined.
 This must be done using a user principal which is member of administror group.
@@ -90,6 +90,8 @@ psql "host=${SERVER_NAME}.postgres.database.azure.com \
         user=${USER_NAME}@${SERVER_NAME} \
         dbname=postgres"
 ```
+
+## Add users
 
 - Database setting
 
