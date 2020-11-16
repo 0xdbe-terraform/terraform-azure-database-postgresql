@@ -25,7 +25,7 @@ resource "azurerm_postgresql_server" "main" {
   backup_retention_days        = 7
   geo_redundant_backup_enabled = false
 
-  administrator_login          = "adm1n157r470r"
+  administrator_login          = "local4dm1n157r470r"
   administrator_login_password = random_password.admin.result
 
   version                      = var.psql_server_version
@@ -59,7 +59,7 @@ resource "azurerm_postgresql_active_directory_administrator" "main" {
   resource_group_name = var.resource_group_name
   tenant_id           = var.azure_tenant_id
   object_id           = azuread_group.db_admin.object_id
-  login               = "adm1n157r470r44D"
+  login               = "aad4dm1n157r470r"
 }
 
 resource "azuread_group" "db_user" {
@@ -75,8 +75,8 @@ resource "azuread_group" "db_user" {
       PGDATABASE    = "postgres"
       PGHOST        = "${azurerm_postgresql_server.main.name}.postgres.database.azure.com"
       PGUSER        = "${azurerm_postgresql_active_directory_administrator.main.login}@${azurerm_postgresql_server.main.name}"
-      PGSSLMODE     = verify-full
-      PGSSLROOTCERT = BaltimoreCyberTrustRoot.crt.pem
+      PGSSLMODE     = "verify-full"
+      PGSSLROOTCERT = "BaltimoreCyberTrustRoot.crt.pem"
       GROUP_NAME    = self.name
     }
   }

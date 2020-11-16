@@ -13,7 +13,7 @@ locals {
 }
 
 module "azure_ressource_group" {
-  source                  = "git::https://github.com/0xdbe-terraform/terraform-azure-resource-group.git?ref=v2.0.0"
+  source                  = "git::https://github.com/0xdbe-terraform/terraform-azure-resource-group.git?ref=v2.0.1"
   azure_location          = local.azure_location
   application_full_name   = local.application_full_name
   application_short_name  = local.application_short_name
@@ -22,7 +22,7 @@ module "azure_ressource_group" {
 
 # Service Principal used by Azure DevOps
 module "azure_ad_sp_azdo" {
-  source                    = "git::https://github.com/0xdbe-terraform/terraform-azure-ad-service-principal.git?ref=v2.0.1"
+  source                    = "git::https://github.com/0xdbe-terraform/terraform-azure-ad-service-principal.git?ref=v2.0.2"
   application_full_name     = local.application_full_name
   application_environment   = local.application_environment
   service_principal_purpose = "azdo"
@@ -30,14 +30,14 @@ module "azure_ad_sp_azdo" {
 
 # Service Principal used by application
 module "azure_ad_sp_app" {
-  source                    = "git::https://github.com/0xdbe-terraform/terraform-azure-ad-service-principal.git?ref=v2.0.1"
+  source                    = "git::https://github.com/0xdbe-terraform/terraform-azure-ad-service-principal.git?ref=v2.0.2"
   application_full_name     = local.application_full_name
   application_environment   = local.application_environment
   service_principal_purpose = "app"
 }
 
 module "azure_database_postgresql" {
-  source                     = "git::https://github.com/0xdbe-terraform/terraform-azure-database-postgresql.git?ref=v2.0.5"
+  source                     = "git::https://github.com/0xdbe-terraform/terraform-azure-database-postgresql.git?ref=v2.0.6"
   azure_tenant_id            = data.azurerm_client_config.current.tenant_id
   azure_location             = local.azure_location
   application_full_name      = local.application_full_name
